@@ -1,11 +1,11 @@
 # wikipedia-sematics
----
+
 
 This is suppport plugin for the Information Retrieval (CSE508) Academic Project. 
 
 
 ## Usage
----
+
 
 1. Download Zip and Extract it.
 2. Now Go to Chrome Extension. Enable Developer Mode.
@@ -15,14 +15,13 @@ This is suppport plugin for the Information Retrieval (CSE508) Academic Project.
 
 
 ## Contributors:
----
+
 * Prashant Pathak
 * Anchit Gupta
 * Deekshant Mamodia
----
 
 
 ### License:
----
+
 MIT License 2020. All Right Reserved to Repository Contributors.
  
