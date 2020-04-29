@@ -1,6 +1,6 @@
 # wikipedia-sematics
 
-This is suppport plugin for the Information Retrieval (CSE508) Academic Project. 
+This is suppport plugin for the Information Retrieval (CSE508) Academic Project 2020. 
 
 
 ## Usage
@@ -19,6 +19,15 @@ This is suppport plugin for the Information Retrieval (CSE508) Academic Project.
 * Prashant Pathak
 * Anchit Gupta
 * Deekshant Mamodia
+
+## TODO:
+
+1. ``Add text box for the line``
+2. ``Add text box for the citation``
+3. ``Show pop up window for the result``
+4. ``Fix UI elements``
+5. ``Add More Suitable Images``
+6. ``Code Cleanup``
 
 
 ### License:
