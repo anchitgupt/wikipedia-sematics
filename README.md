@@ -1,12 +1,12 @@
 # wikipedia-sematics
 
-
 This is suppport plugin for the Information Retrieval (CSE508) Academic Project. 
 
 
 ## Usage
+![](images/howto.gif)
 
-
+---
 1. Download Zip and Extract it.
 2. Now Go to Chrome Extension. Enable Developer Mode.
 3. After that click on Load Unpacked.

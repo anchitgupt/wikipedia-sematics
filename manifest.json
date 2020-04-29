@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
-  "version": "1.2",
-  "description": "Build an Extension!",
+  "name": "Wikipedia Sematics",
+  "version": "1.5",
+  "description": "IR Support Plugin",
   "permissions": ["activeTab", "declarativeContent", "storage", "tabs"],
   "options_page": "options.html",
   "background": {
