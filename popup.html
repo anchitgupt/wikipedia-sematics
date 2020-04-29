@@ -1,16 +1,32 @@
 <!DOCTYPE html>
+
 <html>
-  <head>
-    <style>
-      button {
-        height: 30px;
-        width: 30px;
-        outline: none;
-      }
-    </style>
-  </head>
-  <body>
-    <button id="changeColor"></button>
-    <script src="popup.js"></script>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+  <script src="jquery/jquery-3.4.1.js"></script>
+  <script src="bootstrap/js/bootstrap.js"></script>
+</head>
+
+<body>
+  
+  <div style="width: 500px; text-align: center;">
+    <h4>Wikipedia Reference Search</h1>
+    <hr>
+    <div style="text-align: left; margin-left: 30px;">
+      <h5>Query :</h5>
+      <h5 id="queryHeader"></h5>
+    </div>
+    <div>
+      <p id="queryText"></p>
+    </div>
+    <hr>
+    <button id="changeColor" type="button" class="btn btn-primary">Submit</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
 </html>
