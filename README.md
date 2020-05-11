@@ -1,10 +1,10 @@
 # wikipedia-sematics
 
-This is suppport plugin for the Information Retrieval (CSE508) Academic Project 2020. 
+This is suppport plugin and the scrapper code for the Information Retrieval (CSE508) Academic Project 2020.
 
 
-## Usage
-![](images/howto.gif)
+## Plugin Usage
+![](plugin/images/howto.gif)
 
 ---
 1. Download Zip and Extract it.
