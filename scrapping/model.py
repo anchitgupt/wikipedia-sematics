@@ -8,6 +8,11 @@ import multiprocessing
 #general library
 import xml.etree.ElementTree as ET
 import time
+import enum
+
+class ModelType(enum.Enum):
+    Word2Vec = 1
+    SelfTrainedDoc2Vec = 2
 
 class LoadEmbeddings:
     def __init__(self,xmlPath):
@@ -18,12 +23,11 @@ class LoadEmbeddings:
         # loadng all the available model into the dict
         modelInfoDict = dict()
         for typeTag in root.findall('models/model'):
-            modelInfoDict[typeTag.get('name')] = typeTag.get('path')
+            modelInfoDict[ModelType[typeTag.get('name')]] = typeTag.get('path')
 
         #finding the current model to read         
-        currentModel = root.find('CurrentModel').text
-        currentSimilarity = root.find('CurrentSimilarity')
-
+        currentModel = ModelType[root.find('CurrentModel').text]
+        
         return currentModel , modelInfoDict[currentModel] 
 
     def loadWord2VecSelf(self, path):
@@ -52,14 +56,14 @@ class LoadEmbeddings:
         return docEmbedding
 
     def loadModel(self):
-        if self.currentModel == 'Word2Vec':
-            wordEmbedding = self.loadWord2Vec(self.path)
-            return wordEmbedding
-        elif self.currentModel == 'SelfTrainedDoc2Vec':
-            docEmbedding = self.loadDoc2Vec(self.path)
-            return docEmbedding 
+        if self.currentModel == ModelType.Word2Vec:
+            self.embedding = self.loadWord2Vec(self.path)
+        elif self.currentModel == ModelType.SelfTrainedDoc2Vec:
+            self.embedding = self.loadDoc2Vec(self.path)
+            
                 
-
-lb = LoadEmbeddings("configuration.xml")
-lb.loadModel()
+if __name__ == "__main__":
+    lb = LoadEmbeddings("configuration.xml")
+    print(lb.currentModel , lb.path)
+    print(lb.loadModel())
 

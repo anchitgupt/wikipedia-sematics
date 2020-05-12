@@ -48,15 +48,18 @@ def home():
             sentences = rp.fetchCitedUrlData(urlList)
             # pass list of sentence and convert it into token form so that it can be give and converted into vector
             sentenceWordTokenize = rp.convertListSenToToken(sentences)
+            #print('Sentences: ', ' '.join(sentenceWordTokenize[0]))
+            #print("Sentences",sentenceWordTokenize)
+            
             # preprocess the query
-            queryString = rp.queryPreprocess(queryString)
-            print("Query    : ", ' '.join(queryString), "\n")
-            # print('Sentence : ', sentences)
-            print('Sentences: ', ' '.join(sentenceWordTokenize[0]))
+            preprocessedQry = rp.queryPreprocess(queryString)
+            #print("preprocessedQry" , preprocessedQry)
+            
             '''
             Now we have to convert the list of words for sentences and query to vector according to model 
             and perform of simialrity task
             '''
+
     op = {
         'status': "OK",
         'citationList': citationList,
