@@ -4,7 +4,7 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 import codecs
 from nltk.stem import WordNetLemmatizer
 from num2words import num2words
-# import contractions
+import contractions
 
 
 class Preprocessing:
@@ -75,15 +75,15 @@ class Preprocessing:
     def removeDigits(self,text):
         text=re.sub(r'\b\d+\b',' ',text)
         return text
-
-
-
-#ps=Preprocessing()
-#text="4253 derd"
-#text=ps.removeDigits(text)
-#print(text)
-# word_list=ps.wordTokenization(text)
-# word_list=ps.removeStopword(word_list)
-# print(ps.lemmatization(word_list))
     
+    def removeSpecialCharacter(self,regList,replaceChar,data):
+        # regex for handle, for RT and for URls
+        for regex in regList:
+            data = re.sub(regex,replaceChar,data)
+        return data
+    
+    def sentenceTokenize(self,data):
+        data = sent_tokenize(data)
+        return data
+
     
