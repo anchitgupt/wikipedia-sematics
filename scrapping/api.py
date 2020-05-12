@@ -1,67 +1,63 @@
 import flask
-from flask import Flask, abort
 from flask import request, jsonify
 import readAndPreprocessData as rp
-
+from flask import abort
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
-
-@app.route('/api/retrievetext', methods=['POST'])
+@app.route('/api/', methods=['POST'])
 def home():
-    if not request.json:  # on or not 'pageName' in request.json:
-        print('Request Aborted')
+    if not request.json: #on or not 'pageName' in request.json:
         abort(400)
 
-    # Read data from the POST method
-    pageName = request.json['pageName']
+    #Read data from the POST method
+    pageName = request.json['pageName'] 
     queryText = request.json['queryText']
-
-    # Read the wikipedia path
+    
+    #Read the wikipedia path  
     wikiBasePath = 'https://en.wikipedia.org'
     completeUrl = wikiBasePath + "/wiki/" + pageName
 
-    # variable to store error message
+    #variable to store error message
     errorText = ''
-    # seperate the query and citation part
+    #seperate the query and citation part
     queryString, citationList = rp.seperateQueryAndCitation(queryText)
-    # read the wikipedia path
-    wiki = rp.readUrlContent(completeUrl)
-    # get the url at the citation
-    urlDict = rp.getAllCiteLink(wikiBasePath, wiki)
-    # loop for evry citation in the query
+    #read the wikipedia path
+    wiki  = rp.readUrlContent(completeUrl)
+    #get the url at the citation
+    urlDict = rp.getAllCiteLink(wikiBasePath,wiki)
+
+    #loop for evry citation in the query
     for i in citationList:
         urlList = urlDict[i]
         if (len(urlList) == 0):
-            errorText = "No data To handle"
-            print("No data To handle")
-            break
+            errorText = "No data To handle" 
+            print ("No data To handle")
+            break;
         elif urlList[0].split('/')[-1].split('.')[-1] == 'pdf':
-            errorText = 'PDF not supported'
+            errorText = 'PDF not supported' 
             print('PDF not supported')
-            break
+            break;
         else:
-            # read the data of the cited document and return proper sentences
+            #read the data of the cited document and return proper sentences
             sentences = rp.fetchCitedUrlData(urlList)
-            # pass list of sentence and convert it into token form so that it can be give and converted into vector
+            #pass list of sentence and convert it into token form so that it can be give and converted into vector
             sentenceWordTokenize = rp.convertListSenToToken(sentences)
-            # preprocess the query
+            #preprocess the query
             queryString = rp.queryPreprocess(queryString)
-            print("Query    : ", ' '.join(queryString), "\n")
-            # print('Sentence : ', sentences)
-            print('Sentences: ', sentenceWordTokenize[0])
+            print("Query : ",' '.join(queryString), "\n")
             '''
             Now we have to convert the list of words for sentences and query to vector according to model 
             and perform of simialrity task
-            '''
+            '''    
     op = {
-        'status': "OK",
-        'citationList': citationList,
-        'error': errorText,
-        'data': sentenceWordTokenize
+       'wikiBasePath' : wikiBasePath,
+        'pageName' :  pageName,
+        'queryText' : ' '.join(queryString),
+        'citationList' : citationList,
+        'error' : errorText
     }
 
-    return jsonify(op), 201
-
+    return jsonify(op), 200
 
 app.run()

@@ -102,7 +102,7 @@ def preprocessData(data):
     #Remove Special Charecter
     #remove [1],[2],[3] so on
     data=ps.removeSpecialCharacter(data)
-    data=ps.removePunctauation_except(data)
+    data=ps.removePunctaution_except(data)
     data=ps.wordTokenization(data)
     data=ps.spaces(data)
     dataList=ps.lemmatization(data)
