@@ -15,27 +15,23 @@ class Preprocessing:
     def TexttoLower(self,text):
         text=text.lower()
         return text
-    
-    def removeMetaData(self,text):
-        text=re.sub(r'\n\n','',text)
-        #text=re.sub(r'.*[lL]ines: \d+','',text)
-        return text
-    
+
     def expandContractions(self,text):
         text=contractions.fix(text)
         return text
-    
-    #Updated by Prashant
-    def removeSpecialCharacter(self,regList,replaceChar,data):
-        # reger for handle, for RT and for URls
+   
+    def removeSpecialCharacter(self,text):
+        # regex for handle, for RT and for URls
+        regList = ['https?://[A-Za-z0-9./]+','[-)(:;/]+','(\\[\\d+\\]|\\[\\w+\\])']
+        replaceChar=' '
         for regex in regList:
-            data = re.sub(pattern = regex, repl = replaceChar ,string = data)
-        return data
-        
-    def removeEmailId(self,text):
-        text=re.sub(r'\b[A-Za-z0-9=.-]+@[A-Za-z0-9]+\.*[.\w+]+\b',' ',text)
+            text = re.sub(pattern = regex, repl = replaceChar ,string = text)
         return text
-                    
+        
+    def removePunctaution_except(self,text):
+        text=re.sub(r'[~`!@#$%^&*(){[}|_<,>?/:;"-]',' ',text)
+        return text
+                           
     def wordTokenization(self,text):
         text=word_tokenize(text)
         return text
@@ -47,12 +43,7 @@ class Preprocessing:
             if w not in stopword:
                 word.append(w)
         return word
-                    
-    def removePunctuations(self,word_list):
-        table = str.maketrans(' ', ' ', string.punctuation)
-        word_list = [w.translate(table) for w in word_list]
-        return word_list
-    
+                
     def spaces(self,word_list):
         word=[s for s in word_list if s]
         return word
@@ -63,27 +54,8 @@ class Preprocessing:
             word.append(self.lemmatizer.lemmatize(w))
         return word
         
-    def num2wordExpansion(self,word_list):
-        final_word=[]
-        for w in word_list:
-            if w.isdigit():
-                final_word.append(num2words(w))
-            else:
-                final_word.append(w)
-        return final_word
+    
 
-    def removeDigits(self,text):
-        text=re.sub(r'\b\d+\b',' ',text)
-        return text
-    
-    def removeSpecialCharacter(self,regList,replaceChar,data):
-        # regex for handle, for RT and for URls
-        for regex in regList:
-            data = re.sub(regex,replaceChar,data)
-        return data
-    
-    def sentenceTokenize(self,data):
-        data = sent_tokenize(data)
-        return data
+
 
     

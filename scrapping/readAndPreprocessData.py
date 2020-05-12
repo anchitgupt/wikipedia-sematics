@@ -98,14 +98,17 @@ def preprocessData(data):
     #Making the text to lower case 
     data = ps.TexttoLower(data)
     #Expanding the contraction
-    # data = ps.expandContractions(data)
+    data = ps.expandContractions(data)
     #Remove Special Charecter
     #remove [1],[2],[3] so on
-    regList = ['https?://[A-Za-z0-9./]+','[-)(:;/]+','(\[\d+\]|\[\w+\])']
-    data = ps.removeSpecialCharacter(regList,' ', data)
-    data = data.replace('\n','').replace('(' ,'').replace(')' ,'')
+    data=ps.removeSpecialCharacter(data)
+    data=ps.removePunctauation_except(data)
+    data=ps.wordTokenization(data)
+    data=ps.spaces(data)
+    dataList=ps.lemmatization(data)
+    #data = data.replace('\n','').replace('(' ,'').replace(')' ,'')
     #Converting the words into tokens
-    dataList = ps.sentenceTokenize(data)
+    #dataList = ps.sentenceTokenize(data)
     return dataList
 
 def ConvertSenToTokenizeForm(sentence,ps):
