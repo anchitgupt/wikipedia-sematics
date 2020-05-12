@@ -4,8 +4,6 @@ import re
 import requests
 import bs4
 import DataPreprocessing as p
-import nltk
-from nltk.tokenize import sent_tokenize
 
 
 ############################################################################################################
@@ -22,19 +20,13 @@ cite_num     = sorted([4, 5])
 res     = requests.get(url)
 wiki    = bs4.BeautifulSoup(res.text, "lxml")
 
-
-
 # checking if somedata is available or not
 if wiki == None:
     print('Document reference Can\'t be reached')
     exit(1)
 
-
-
 # read each cite note
 citations = wiki.find_all("li", {'id': re.compile(r'^cite_note')})
-
-
 
 # citations = [wiki.find_all("li", {'id': re.compile(r'^cite_note\-'+str(i)+'|cite_note\-[a-zA-Z0-9]*\-'+str(i)+'')}) for i in cite_num]
 

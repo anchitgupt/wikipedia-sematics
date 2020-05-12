@@ -1,0 +1,18 @@
+<root>
+	<models>
+		<model name = "Word2Vec"
+			path ="C:\\Users\\prash\\Desktop\\JupitarCode\\IR\\IR Project\\enwiki_20180420_win10_100d.txt" >
+		</model>
+	
+	</models>
+	
+	<!-- <mesures>
+		<mesure>
+		<name> </name>
+		<requireVec></requireVec>
+		</mesure>
+	 </mesures>-->
+	
+	<CurrentModel>Word2Vec</CurrentModel>
+	<CurrentSimilarity>Cosine</CurrentSimilarity>
+</root>
