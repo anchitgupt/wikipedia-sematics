@@ -1,10 +1,10 @@
-import re,string,math
+import re,string,math, nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize,word_tokenize
 import codecs
 from nltk.stem import WordNetLemmatizer
 from num2words import num2words
-import contractions
+# import contractions
 
 
 class Preprocessing:
@@ -21,9 +21,9 @@ class Preprocessing:
         #text=re.sub(r'.*[lL]ines: \d+','',text)
         return text
     
-    def expandContractions(self,text):
-        text=contractions.fix(text)
-        return text
+    # def expandContractions(self,text):
+    #     text=contractions.fix(text)
+    #     return text
     
     #Updated by Prashant
     def removeSpecialCharacter(self,regList,replaceChar,data):
@@ -75,12 +75,6 @@ class Preprocessing:
     def removeDigits(self,text):
         text=re.sub(r'\b\d+\b',' ',text)
         return text
-    
-    def removeSpecialCharacter(self,regList,replaceChar,data):
-        # regex for handle, for RT and for URls
-        for regex in regList:
-            data = re.sub(regex,replaceChar,data)
-        return data
     
     def sentenceTokenize(self,data):
         data = sent_tokenize(data)

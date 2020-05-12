@@ -2,12 +2,15 @@ import flask
 from flask import Flask, abort
 from flask import request, jsonify
 import readAndPreprocessData as rp
+from flask_cors import CORS
+
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+CORS(app)
 
 
-@app.route('/api/retrievetext', methods=['POST'])
+@app.route('/', methods=['POST'])
 def home():
     if not request.json:  # on or not 'pageName' in request.json:
         print('Request Aborted')
@@ -49,7 +52,7 @@ def home():
             queryString = rp.queryPreprocess(queryString)
             print("Query    : ", ' '.join(queryString), "\n")
             # print('Sentence : ', sentences)
-            print('Sentences: ', sentenceWordTokenize[0])
+            print('Sentences: ', ' '.join(sentenceWordTokenize[0]))
             '''
             Now we have to convert the list of words for sentences and query to vector according to model 
             and perform of simialrity task
@@ -58,7 +61,7 @@ def home():
         'status': "OK",
         'citationList': citationList,
         'error': errorText,
-        'data': sentenceWordTokenize
+        'data': ' '.join(sentenceWordTokenize[0])
     }
 
     return jsonify(op), 201
