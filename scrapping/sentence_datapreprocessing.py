@@ -60,7 +60,7 @@ class Preprocessing:
             word[i]=[s for s in sentences[i] if s]
         return word
         
-    def lemmatization(self,word_list):
+    def lemmatization(self,sentences):
         word=[ [] for i in range(len(sentences)) ]
         for i in range(len(sentences)):
             for w in sentences[i]:
@@ -73,4 +73,3 @@ class Preprocessing:
         for i in range(len(sentences)):
             word[i]=s.join(sentences[i])
         return word
-

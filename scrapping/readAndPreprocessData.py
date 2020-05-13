@@ -106,6 +106,7 @@ def preprocessData(data):
     data=ps.wordTokenization(data)
     data=ps.spaces(data)
     dataList=ps.lemmatization(data)
+    dataList=ps.makeSentence(dataList)
     #data = data.replace('\n','').replace('(' ,'').replace(')' ,'')
     #Converting the words into tokens
     #dataList = ps.sentenceTokenize(data)
