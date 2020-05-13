@@ -16,5 +16,6 @@
 	 </mesures> -->
 	
 	<CurrentModel>SelfTrainedDoc2Vec</CurrentModel>
-	<CurrentMesures>Cosine</CurrentMesures>
+	<CurrentMesures>CosineSimilarity</CurrentMesures> <!-- CosineSimilarity , SmoothFreqInverse WordMoverDist-->
+
 </root>

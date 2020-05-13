@@ -5,6 +5,7 @@ from gensim.test.utils import datapath
 # library for Doc2Vec
 from gensim.models.doc2vec import Doc2Vec
 import multiprocessing
+import numpy
 #general library
 import xml.etree.ElementTree as ET
 import time
@@ -62,8 +63,8 @@ class LoadEmbeddings:
             self.embedding = self.loadDoc2Vec(self.path)
             
                 
-if __name__ == "__main__":
-    lb = LoadEmbeddings("configuration.xml")
-    print(lb.currentModel , lb.path)
-    print(lb.loadModel())
+# if __name__ == "__main__":
+#     lb = LoadEmbeddings("configuration.xml")
+#     print(lb.currentModel , lb.path)
+#     print(lb.loadModel())
 

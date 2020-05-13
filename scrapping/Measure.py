@@ -1,8 +1,10 @@
-import LoadEmbeddings as model
+from model import LoadEmbeddings
+from model import ModelType
 import xml.etree.ElementTree as ET
 import DataPreprocessing as p
 from scipy import spatial
 import enum
+import numpy as np
 
 class Convert2Vec:
     '''
@@ -12,21 +14,20 @@ class Convert2Vec:
         self.model = model
 
     def convertSen2Vec(self,senlist,isquery):
-        
         if isquery:
-            return self.makeSentenceVector(model,senlist) 
+            return self.makeSentenceVector(senlist) 
         else:
-            return self.sentenceList2Vector(model,senlist) 
+            return self.sentenceList2Vector(senlist) 
 
 
-    def makeSentenceVector(self,model,sentence):
+    def makeSentenceVector(self,sentence):
         '''
         Convert a single sentence to vector
         '''
         sentence = sentence.replace('.','')
         senWords = sentence.split(' ')
-        if model.currentModel = ModelType.Word2Vec:
-            wordEmbedding = model.embedding
+        if self.model.currentModel == ModelType.Word2Vec:
+            wordEmbedding = self.model.embedding
             ps=p.Preprocessing()
             senWords = ps.removeStopword(senWords)
             mat = []
@@ -35,18 +36,18 @@ class Convert2Vec:
                     mat.append(wordEmbedding[i])
             mat = np.array(mat)
             return np.mean(mat,axis = 0)
-        esif model.currentModel  = ModelType.SelfTrainedDoc2Vec:
-            embedding = model.embedding
+        elif self.model.currentModel  == ModelType.SelfTrainedDoc2Vec : 
+            embedding = self.model.embedding
             mat = np.array(embedding.infer_vector(senWords))
-        return mat 
+            return mat 
 
         
-    def sentenceList2Vector(self,model,listSen):
+    def sentenceList2Vector(self,listSen):
         '''
         make a 2D matrix of vector
         '''
-        senVecDict= {sen : self.makeSenVecWord2Vec(model,sen) for sen in sentences}
-        return senVecDict    
+        senVecDict= {sen[0] : self.makeSentenceVector(sen[0]) for sen in listSen}
+        return senVecDict
 
 
 class MeasureType(enum.Enum):
@@ -64,14 +65,8 @@ class Measure:
         self.model = model
 
 
-    def loadConfiguration(self,path):
+    def loadMeasureConfiguration(self,path):
         root = ET.parse(path).getroot()
-        # loadng all the available model into the dict
-        # mesures = dict()
-        # for typeTag in root.findall('mesures/mesure'):
-        #     mesures[MeasureType[typeTag.get('name')]]  = bool(typeTag.get('requireVec')))
-        
-        #finding the current model to read         
         currentMeasure = MeasureType[root.find('CurrentMesures').text]
         
         return currentMeasure
@@ -81,13 +76,15 @@ class Measure:
             #get the vectors form the sentences
             obConvert2Vec = Convert2Vec(self.model) 
             qryVector = obConvert2Vec.convertSen2Vec(query,True)
-            sentenceVectorDict = obConvert2Vec.convertSen2Vec(query,False)
+            sentenceVectorDict = obConvert2Vec.convertSen2Vec(sentencesList,False)
             # get scores
-            scores, sentence = self.cosineSimilarity(qryVector,sentence)
-        elif self.currentMeasure == MeasureType.SmoothFreqInverse:
-            # TODO Later
+            scores, sentence = self.cosineSimilarity(qryVector,sentenceVectorDict)
+            return scores, sentence  
+        # elif self.currentMeasure == MeasureType.SmoothFreqInverse:
+        #     # TODO Later    
         elif self.currentMeasure == MeasureType.WordMoverDist:
-            scores, sentence = self.wordMoverDist(query,sentencesList,model)
+            scores, sentence = self.wordMoverDist(query,sentencesList)
+            return scores, sentence 
 
 
     def cosineSimilarity(self,queryVector,sentenceVector):
@@ -101,13 +98,13 @@ class Measure:
         scores, sentence = zip(*sorted(zip(scores, sentenceVector.keys())))
         return scores, sentence
 
-    def wordMoverDist(self,query,sentence,model):
-    '''
-    calculates the word Mover Distance between query and sentences
-    '''
-    scores = []
-    for sen in sentence:
-        scores.append(model.embedding.wmdistance(sen, query))
-    scores, sentence = zip(*sorted(zip(scores, sentence)))
-    return scores, sentence
+    def wordMoverDist(self,query,sentence):
+        '''
+        calculates the word Mover Distance between query and sentences
+        '''
+        scores = []
+        for sen in sentence:
+            scores.append(self.model.embedding.wmdistance(sen, query))
+        scores, sentence = zip(*sorted(zip(scores, sentence)))
+        return scores, sentence
     
