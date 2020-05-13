@@ -1,7 +1,7 @@
 import re
 import requests
 import bs4
-import DataPreprocessing as p
+import sentence_datapreprocessing as p
 
 def readUrlContent(url):
     '''
@@ -98,48 +98,30 @@ def preprocessData(data):
     #Making the text to lower case 
     data = ps.TexttoLower(data)
     #Expanding the contraction
+    data=ps.sentence_tokenize(data)
     data = ps.expandContractions(data)
-    #Remove Special Charecter
-    #remove [1],[2],[3] so on
     data=ps.removeSpecialCharacter(data)
     data=ps.removePunctaution_except(data)
     data=ps.wordTokenization(data)
     data=ps.spaces(data)
     dataList=ps.lemmatization(data)
     dataList=ps.makeSentence(dataList)
-    #data = data.replace('\n','').replace('(' ,'').replace(')' ,'')
-    #Converting the words into tokens
-    #dataList = ps.sentenceTokenize(data)
     return dataList
 
-def ConvertSenToTokenizeForm(sentence,ps):
+def ConvertSenToTokenizeForm(sentence):
     '''
     preprocess the sentence so that they can be found in embeddings
     '''
-    sentence = sentence.replace('.','')
-    senWords = sentence.split(' ')
-    #senWords = ps.removeStopword(senWords)
-    senWords = ps.spaces(senWords)  
-    return senWords
-
-def convertListSenToToken(sentences):
-    '''
-    Convet a list of sentences to token form
-    '''
-    ps=p.Preprocessing()
-    sentences = [ConvertSenToTokenizeForm(sen,ps) for sen in sentences]
-    return sentences 
+    for i in range(len(sentence)):
+        sentence[i] = sentence[i].replace('.',' ')
+        sentence[i]=preprocessData(sentence[i])
+    
+    return sentence
 
 def queryPreprocess(query):
     '''
     code to preprocess the qry
     '''
     query = preprocessData(query)
-    ps=p.Preprocessing()
-    queryWords = []
-    for q in query:
-        queryWords += (q.split(' '))
-    #query = ps.removeStopword(query)
-    queryWords=  ps.spaces(queryWords)
-    #query = ' '.join(query)
-    return queryWords
+    queryList=query[0].replace('.','')
+    return queryList

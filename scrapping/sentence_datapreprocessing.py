@@ -37,7 +37,7 @@ class Preprocessing:
         
     def removePunctaution_except(self,sentences):
         for i in range(len(sentences)):
-            sentences[i]=re.sub(r'[~`!@#$%^&*(){[}|_<,>?/:;"-]',' ',sentences[i])
+            sentences[i]=re.sub(r'[~`!@#$%^&*(){[}\\|_<,>?/:;—"]',' ',sentences[i])
         return sentences
                            
     def wordTokenization(self,sentences):
