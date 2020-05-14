@@ -5,7 +5,7 @@ import readAndPreprocessData as rp
 from flask_cors import CORS
 from model import LoadEmbeddings
 import model
-import measure as m
+import Measure as m
 
 
 app = flask.Flask(__name__)
