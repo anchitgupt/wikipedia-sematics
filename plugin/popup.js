@@ -1,6 +1,3 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 
 'use strict';
 
@@ -31,7 +28,7 @@ function showresult(result) {
       if (data === "No sentences found in the cited document" || data === "No data To handle") {
         row += '<tr id="' + keys[x] + '">' +
           '<td>' +
-          '<div class="w3-card w3-hover-shadow w3-margin w3-row-padding" style="margin-top: 50px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);transition: 0.3s;width: 100%; hover:box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2);">' +
+          '<div class="w3-card w3-hover-shadow w3-margin w3-row-padding">' +
           "Cite : [" + keys[x] + "]" +
           '<p class="w3-red">' +
           data +
@@ -41,7 +38,7 @@ function showresult(result) {
       } else {
         row += '<tr id="' + keys[x] + '">' +
           '<td>' +
-          '<div class="w3-card w3-hover-shadow w3-margin w3-row-padding" style="margin-top: 50px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);transition: 0.3s;width: 100%; hover:box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2);">' +
+          '<div class="w3-card w3-hover-shadow w3-margin w3-row-padding">' +
           "Cite : [" + keys[x] + "]" +
           '<p>' +
           data +
