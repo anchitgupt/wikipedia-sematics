@@ -5,7 +5,7 @@
 		</model>
 		
 		<model name = "SelfTrainedDoc2Vec"
-			path ="C:\Users\prash\Desktop\JupitarCode\IR\IR Project\trained_Doc2VecModel\doc2vec_model.model">
+			path ="C:\Users\Alok Kumar\Desktop\Github\doc2vec_model.model">
 		</model>
 	</models>
 	
