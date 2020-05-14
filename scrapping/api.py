@@ -66,7 +66,7 @@ def home():
             # pass list of sentence and convert it into token form so that it can be give and converted into vector
             sentenceWordTokenize = rp.ConvertSenToTokenizeForm(sentences)
             #print('Sentences: ', ' '.join(sentenceWordTokenize[0]))
-            #print("Sentences",sentenceWordTokenize)
+            # print("Sentences",sentenceWordTokenize)
             if(len(sentenceWordTokenize) == 0):
                 errorText = 'No sentences found in the cited document'
                 result[i] = (errorText,"")

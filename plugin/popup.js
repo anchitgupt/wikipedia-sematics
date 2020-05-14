@@ -15,6 +15,52 @@
 //     }
 //   );
 // }
+function showresult(result) {
+  console.log(result);
+  result = JSON.parse(result)
+  console.log(result["status"]);
+  if (result.status === "OK") {
+    var row = "";
+    var keys = Object.keys(result.result)
+    for (var x in keys) {
+      var data = ""
+      for (var y in result.result[keys[x]]) {
+        data += result.result[keys[x]][y];
+      }
+      console.log(x, data);
+      if (data === "No sentences found in the cited document" || data === "No data To handle") {
+        row += '<tr id="' + keys[x] + '">' +
+          '<td>' +
+          '<div class="w3-card w3-hover-shadow w3-margin w3-row-padding" style="margin-top: 50px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);transition: 0.3s;width: 100%; hover:box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2);">' +
+          "Cite : [" + keys[x] + "]" +
+          '<p class="w3-red">' +
+          data +
+          '</p>' +
+          '</div></td>' +
+          '</tr></hr>';
+      } else {
+        row += '<tr id="' + keys[x] + '">' +
+          '<td>' +
+          '<div class="w3-card w3-hover-shadow w3-margin w3-row-padding" style="margin-top: 50px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);transition: 0.3s;width: 100%; hover:box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2);">' +
+          "Cite : [" + keys[x] + "]" +
+          '<p>' +
+          data +
+          '</p>' +
+          '</div></td>' +
+          '</tr></hr>';
+      }
+    }
+    document.getElementById('resultText')
+      .innerHTML = row;
+  } else {
+    // TODO: Add messages
+    document.getElementById('resultText')
+      .innerHTML = '<h5 class="w3-red">Internal Error<h5>';
+  }
+}
+
+
+
 
 function alerting(url, query) {
 
@@ -23,8 +69,8 @@ function alerting(url, query) {
   // alert(pathArray + " ## " + query);
   if (pathArray.split('#').length > 1) pathArray = pathArray.split('#')[0]
 
-  document.getElementById("queryHeader").innerHTML = pathArray;
-  document.getElementById("queryText").innerHTML = query;
+  document.getElementById("queryHeader").innerHTML = '<strong>Document: </strong>: ' + pathArray;
+  document.getElementById("queryText").innerHTML = '<strong>Query</strong>: '+ query;
   // TODO
   // call api function call here
   var myHeaders = new Headers();
@@ -44,20 +90,24 @@ function alerting(url, query) {
 
   fetch("http://127.0.0.1:5000/", requestOptions)
     .then(response => response.text())
-    .then(result => console.log('Result: ' + result))
+    .then(result => showresult(result))
     .catch(error => console.log('error', error));
 
 }
 
 
 changeColor.onclick = function (element) {
+
+  document.getElementById("head").setAttribute("style", "visibility: visible;");
+  document.getElementById("tail").setAttribute("style", "visibility: visible;");
+
   chrome.tabs.query({
     active: true,
     lastFocusedWindow: true
   }, function (tabs) {
     chrome.tabs.executeScript({
-        code: "window.getSelection().toString();"
-      },
+      code: "window.getSelection().toString();"
+    },
       function (selection) {
         var query = selection[0];
         chrome.tabs.executeScript(tabs[0].id, {

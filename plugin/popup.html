@@ -5,25 +5,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
   <script src="jquery/jquery-3.4.1.js"></script>
   <script src="bootstrap/js/bootstrap.js"></script>
 </head>
 
+
+
 <body>
-  
-  <div style="width: 500px; text-align: center;">
-    <h4>Wikipedia Reference Search</h1>
+
+  <div style="width: 500px; text-align: center;" class="w3-margin-bottom w3-margin-top">
+    <h4>Wikipedia Reference Search</h4>
     <hr>
-    <div style="text-align: left; margin-left: 30px;">
-      <h5>Query :</h5>
-      <p id="queryHeader"></p>
+    <!-- Query -->
+    <div id="head" class="w3-card w3-hover-shadow w3-margin w3-row-padding w3-margin-right" style="visibility: hidden;">
+      <div style="text-align: left;">
+        <h6 id="queryHeader">Document :</h6>
+        <p id="queryText">Query:</p>
+      </div>
     </div>
-    <div>
-      <p id="queryText"></p>
+    <!-- Result -->
+    <div id="tail" style="visibility: hidden;">
+      <div style="text-align: left;">
+        <h6 class="w3-margin">Result :</h6>
+        <table id="resultText"></table>
+      </div>
     </div>
     <hr>
-    <button id="changeColor" type="button" class="btn btn-primary">Submit</button>
+    <button id="changeColor" type="button" class="btn btn-primary w3-margin-bottom">Submit</button>
   </div>
 
   <script src="popup.js"></script>

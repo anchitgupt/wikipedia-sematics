@@ -7,6 +7,8 @@ def readUrlContent(url):
     '''
     read pages form given URL
     '''
+    if url[:2] == "//":
+        url = 'http:'+ url
     res = requests.get(url)
     if res == False:
         print('404 Page Not Found')

@@ -46,7 +46,13 @@ class Convert2Vec:
         '''
         make a 2D matrix of vector
         '''
-        senVecDict= {sen[0] : self.makeSentenceVector(sen[0]) for sen in listSen}
+        # senVecDict= {sen[0] : self.makeSentenceVector(sen[0]) for sen in listSen }
+        senVecDict= {}
+        for sen in listSen:
+            try:
+                senVecDict[sen[0]]=self.makeSentenceVector(sen[0])
+            except:
+                pass
         return senVecDict
 
 
