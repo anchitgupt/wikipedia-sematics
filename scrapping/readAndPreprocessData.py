@@ -17,16 +17,28 @@ def readUrlContent(url):
     return wiki
 
 
-def getParas(wiki):
+# def getParas(wiki):
+#     '''
+#     read files that are in the cited link and fetch its text
+#     '''
+#     elems = wiki.select('p')
+#     data = []
+#     for i in range(len(elems)):
+#         data.append(elems[i].getText())
+#     dataString = "\n".join(data)
+#     return dataString
+
+def getParas(wiki,wantPara):
     '''
-    read files that are in the cited link and fetch its text
+    read files that are in the cited link and fetch its text as sentence and as paragraph
     '''
     elems = wiki.select('p')
     data = []
     for i in range(len(elems)):
         data.append(elems[i].getText())
-    dataString = "\n".join(data)
-    return dataString
+    if not wantPara:
+        data = "\n".join(data)
+    return data    
 
 
 def getAllCiteLink(wiki_bPath,wiki):
@@ -63,17 +75,35 @@ def getCiteLink(wiki_bPath,wiki,citeNub):
                 urlList.append(a['href'])
     return urlList
 
-def fetchCitedUrlData(citeList):
+# def fetchCitedUrlData(citeList):
+#     '''
+#     Read each url in the document(citeList) and scrap those url content and return a preprocess sentence list
+#     '''
+#     docSentences = []
+#     for cite in citeList:
+#         data = getParas(readUrlContent(cite))
+#         #print (preprocessData(data))
+#         docSentences += preprocessData(data)
+#     return docSentences
+
+def fetchCitedUrlData(citeList,wantPara):
     '''
-    Read each url in the document(citeList) and scrap those url content and return a preprocess sentence list
+    Read each url in the document(citeList) and scrap those url content 
+    and return a preprocess sentence list
     '''
     docSentences = []
     for cite in citeList:
-        data = getParas(readUrlContent(cite))
+        data = getParas(readUrlContent(cite),wantPara)
         #print (preprocessData(data))
-        docSentences += preprocessData(data)
+        if wantPara:
+            #preprocess each paragraph
+            for p in data:
+                para= "".join(preprocessData(p))
+                if len(para.strip()) > 20 :
+                    docSentences.append(para)
+        else:
+            docSentences += preprocessData(data)
     return docSentences
-
 
 def seperateQueryAndCitation(queryText):
     '''

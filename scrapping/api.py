@@ -5,7 +5,7 @@ import readAndPreprocessData as rp
 from flask_cors import CORS
 from model import LoadEmbeddings
 import model
-import Measure as m
+import measure as m
 
 
 app = flask.Flask(__name__)
@@ -62,7 +62,7 @@ def home():
             # break
         else:
             # read the data of the cited document and return proper sentences
-            sentences = rp.fetchCitedUrlData(urlList)
+            sentences = rp.fetchCitedUrlData(urlList,wantPara = True)
             # pass list of sentence and convert it into token form so that it can be give and converted into vector
             sentenceWordTokenize = rp.ConvertSenToTokenizeForm(sentences)
             #print('Sentences: ', ' '.join(sentenceWordTokenize[0]))
@@ -78,7 +78,7 @@ def home():
                 '''
                 measure = m.Measure(xmlPath,model)
                 scores ,sentences = measure.computeMeasure(preprocessedQry,sentenceWordTokenize)
-                print(scores[:5],sentences[:5])
+                #print(scores[:5],sentences[:5])
                 result[i] = ("",sentences[0])
             
 

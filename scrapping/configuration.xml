@@ -1,11 +1,11 @@
 <root>
 	<models>
 		<model name = "Word2Vec"
-			path ="C:\Users\Alok Kumar\Desktop\Github\wikipedia-sematics\enwiki_20180420_win10_100d.txt" >
+			path ="C:\Users\prash\Desktop\JupitarCode\IR\IR Project\enwiki_20180420_win10_100d.txt" >
 		</model>
 		
 		<model name = "SelfTrainedDoc2Vec"
-			path ="C:\Users\Alok Kumar\Desktop\Github\wikipedia-sematics\doc2vec_model.model">
+			path ="C:\Users\prash\Desktop\JupitarCode\IR\IR Project\trained_Doc2VecModel\doc2vec_model.model">
 		</model>
 	</models>
 	
