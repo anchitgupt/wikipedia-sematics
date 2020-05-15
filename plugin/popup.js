@@ -95,7 +95,7 @@ function alerting(url, query) {
 
 changeColor.onclick = function (element) {
 
-  document.getElementById("head").setAttribute("style", "visibility: visible;");
+  // document.getElementById("head").setAttribute("style", "visibility: visible;");
   document.getElementById("tail").setAttribute("style", "visibility: visible;");
 
   chrome.tabs.query({
