@@ -1,7 +1,7 @@
 # Extraction Of Similar Semantic Sentence From Wikipedia Citation
 
-This is suppport plugin and the scrapper code for the Information Retrieval (CSE508) Academic Project 2020.
-
+This is suppport plugin and the scrapper code for the Information Retrieval (CSE508) Academic Project 2020. <br />
+Text similarity is used to determine how ‘close’ two pieces of text are with respect to their surface closeness (lexical similarity) or with respect to their meaning (semantic similarity). Semantic text similarity is a very challenging problem in IR and NLP field. In this project, we try to get a semantically similar sentence in the cited document to the cited text, in the context of Wikipedia. We have explored two things in the project. First, we explored different embedding that converts text to vector and still holds the semantic meaning like the Word2Vec and Doc2Vec model. Second, we have explored many similarity and distance metric which help to calculate the results effectively. Apart from this, we have also designed an end to end application of the above task. We have developed an API and plugin so that our project becomes user friendly.
 ## Requirement:
 
 - Internet
@@ -19,12 +19,22 @@ This is suppport plugin and the scrapper code for the Information Retrieval (CSE
 
 ## Server Deployment (Local Steps)
 
+<center>
+<img src="docs\images\usage.gif" alt="backend" width="500"/>
+</center>
+
+---
+
 1. Install all necessary all files and download model from this [link](https://drive.google.com/open?id=1Rew3sxN556vDg7k7yxQwYjC80az44n1x).
 2. Go to -> scrapping in the directory and run command ``python api.py`` or ``python3 api.py``.
 3. Now server will be live on the ``http://127.0.0.1:5000/``.
+4. For sentence based encoding, set the wantPara to ``False`` or vice-versa.
 
 ## Plugin Usage
-![](plugin/images/howto.gif)
+<!-- ![](docs\images\howto.gif=500) -->
+<center>
+<img src="docs\images\howto.gif" alt="backend" width="500"/>
+</center>
 
 ---
 1. Download Zip and Extract it.
@@ -40,9 +50,16 @@ This is suppport plugin and the scrapper code for the Information Retrieval (CSE
 
 ### Overall Design
 
+<img src="docs/images/backend.png" alt="backend" width="500"/>
+
+
 ### Backend Flow
 
+<img src="docs\images\inbackend.jpeg" alt="inbackend" width="250" height="300" />
 
+# Result
+
+<img src="docs\images\querygraph.png" alt="querygraph" />
 
 
 ## Contributors:
