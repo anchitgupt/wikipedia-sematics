@@ -28,7 +28,7 @@ Text similarity is used to determine how ‘close’ two pieces of text are with
 1. Install all necessary all files and download model from this [link](https://drive.google.com/open?id=1Rew3sxN556vDg7k7yxQwYjC80az44n1x).
 2. Go to -> scrapping in the directory and run command ``python api.py`` or ``python3 api.py``.
 3. Now server will be live on the ``http://127.0.0.1:5000/``.
-4. For sentence based encoding, set the wantPara to ``False`` or vice-versa.
+4. For sentence based encoding, set the [wantPara](https://github.com/anchitgupt/wikipedia-sematics/blob/8ac204118ddf727d178c1abc16fa91cb6cc5b533/scrapping/model.py#L48) to ``False`` or vice-versa.
 
 ## Plugin Usage
 <!-- ![](docs\images\howto.gif=500) -->
