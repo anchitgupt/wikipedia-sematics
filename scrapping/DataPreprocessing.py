@@ -54,6 +54,10 @@ class Preprocessing:
             word.append(self.lemmatizer.lemmatize(w))
         return word
         
+    def makeSentence(self,word_list):
+    	sentence=' '.join(word_list)
+    	return sentence
+        
     
 
 

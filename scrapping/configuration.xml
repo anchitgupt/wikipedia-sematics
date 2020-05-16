@@ -1,18 +1,21 @@
 <root>
 	<models>
 		<model name = "Word2Vec"
-			path ="C:\\Users\\prash\\Desktop\\JupitarCode\\IR\\IR Project\\enwiki_20180420_win10_100d.txt" >
+			path ="C:\Users\prash\Desktop\JupitarCode\IR\IR Project\enwiki_20180420_win10_100d.txt" >
 		</model>
-	
+		
+		<model name = "SelfTrainedDoc2Vec"
+			path ="C:\Users\Alok Kumar\Desktop\Github\doc2vec_model.model">
+		</model>
 	</models>
 	
 	<!-- <mesures>
-		<mesure>
-		<name> </name>
-		<requireVec></requireVec>
-		</mesure>
-	 </mesures>-->
+		<mesure name = "CosineSimilarity" requireVec = "True" ></mesure>
+		<mesure name = "SmoothFreqInverse" requireVec = "True" ></mesure>
+		<mesure name = "WordMoverDist" requireVec = "False" ></mesure>
+	 </mesures> -->
 	
-	<CurrentModel>Word2Vec</CurrentModel>
-	<CurrentSimilarity>Cosine</CurrentSimilarity>
+	<CurrentModel>SelfTrainedDoc2Vec</CurrentModel>
+	<CurrentMesures>CosineSimilarity</CurrentMesures> <!-- CosineSimilarity , SmoothFreqInverse WordMoverDist-->
+
 </root>

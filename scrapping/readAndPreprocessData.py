@@ -1,12 +1,14 @@
 import re
 import requests
 import bs4
-import DataPreprocessing as p
+import sentence_datapreprocessing as p
 
 def readUrlContent(url):
     '''
     read pages form given URL
     '''
+    if url[:2] == "//":
+        url = 'http:'+ url
     res = requests.get(url)
     if res == False:
         print('404 Page Not Found')
@@ -17,16 +19,28 @@ def readUrlContent(url):
     return wiki
 
 
-def getParas(wiki):
+# def getParas(wiki):
+#     '''
+#     read files that are in the cited link and fetch its text
+#     '''
+#     elems = wiki.select('p')
+#     data = []
+#     for i in range(len(elems)):
+#         data.append(elems[i].getText())
+#     dataString = "\n".join(data)
+#     return dataString
+
+def getParas(wiki,wantPara):
     '''
-    read files that are in the cited link and fetch its text
+    read files that are in the cited link and fetch its text as sentence and as paragraph
     '''
     elems = wiki.select('p')
     data = []
     for i in range(len(elems)):
         data.append(elems[i].getText())
-    dataString = "\n".join(data)
-    return dataString
+    if not wantPara:
+        data = "\n".join(data)
+    return data    
 
 
 def getAllCiteLink(wiki_bPath,wiki):
@@ -63,17 +77,35 @@ def getCiteLink(wiki_bPath,wiki,citeNub):
                 urlList.append(a['href'])
     return urlList
 
-def fetchCitedUrlData(citeList):
+# def fetchCitedUrlData(citeList):
+#     '''
+#     Read each url in the document(citeList) and scrap those url content and return a preprocess sentence list
+#     '''
+#     docSentences = []
+#     for cite in citeList:
+#         data = getParas(readUrlContent(cite))
+#         #print (preprocessData(data))
+#         docSentences += preprocessData(data)
+#     return docSentences
+
+def fetchCitedUrlData(citeList,wantPara):
     '''
-    Read each url in the document(citeList) and scrap those url content and return a preprocess sentence list
+    Read each url in the document(citeList) and scrap those url content 
+    and return a preprocess sentence list
     '''
     docSentences = []
     for cite in citeList:
-        data = getParas(readUrlContent(cite))
+        data = getParas(readUrlContent(cite),wantPara)
         #print (preprocessData(data))
-        docSentences += preprocessData(data)
+        if wantPara:
+            #preprocess each paragraph
+            for p in data:
+                para= "".join(preprocessData(p))
+                if len(para.strip()) > 20 :
+                    docSentences.append(para)
+        else:
+            docSentences += preprocessData(data)
     return docSentences
-
 
 def seperateQueryAndCitation(queryText):
     '''
@@ -98,47 +130,30 @@ def preprocessData(data):
     #Making the text to lower case 
     data = ps.TexttoLower(data)
     #Expanding the contraction
+    data=ps.sentence_tokenize(data)
     data = ps.expandContractions(data)
-    #Remove Special Charecter
-    #remove [1],[2],[3] so on
     data=ps.removeSpecialCharacter(data)
     data=ps.removePunctaution_except(data)
     data=ps.wordTokenization(data)
     data=ps.spaces(data)
     dataList=ps.lemmatization(data)
-    #data = data.replace('\n','').replace('(' ,'').replace(')' ,'')
-    #Converting the words into tokens
-    #dataList = ps.sentenceTokenize(data)
+    dataList=ps.makeSentence(dataList)
     return dataList
 
-def ConvertSenToTokenizeForm(sentence,ps):
+def ConvertSenToTokenizeForm(sentence):
     '''
     preprocess the sentence so that they can be found in embeddings
     '''
-    sentence = sentence.replace('.','')
-    senWords = sentence.split(' ')
-    #senWords = ps.removeStopword(senWords)
-    senWords = ps.spaces(senWords)  
-    return senWords
-
-def convertListSenToToken(sentences):
-    '''
-    Convet a list of sentences to token form
-    '''
-    ps=p.Preprocessing()
-    sentences = [ConvertSenToTokenizeForm(sen,ps) for sen in sentences]
-    return sentences 
+    for i in range(len(sentence)):
+        sentence[i] = sentence[i].replace('.',' ')
+        sentence[i]=preprocessData(sentence[i])
+    
+    return sentence
 
 def queryPreprocess(query):
     '''
     code to preprocess the qry
     '''
     query = preprocessData(query)
-    ps=p.Preprocessing()
-    queryWords = []
-    for q in query:
-        queryWords += (q.split(' '))
-    #query = ps.removeStopword(query)
-    queryWords=  ps.spaces(queryWords)
-    #query = ' '.join(query)
-    return queryWords
+    queryList=query[0].replace('.','')
+    return queryList
