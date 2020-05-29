@@ -2,7 +2,7 @@
 
 [![HitCount](http://hits.dwyl.com/anchitgupt/wikipedia-semantics.svg)](http://hits.dwyl.com/anchitgupt/wikipedia-semantics)
 
-This is suppport plugin and the scrapper code for the Information Retrieval (CSE508) Academic Project 2020. <br />
+This is support plugin and the scrapper code for the Information Retrieval (CSE508) Academic Project 2020. <br />
 Text similarity is used to determine how ‘close’ two pieces of text are with respect to their surface closeness (lexical similarity) or with respect to their meaning (semantic similarity). Semantic text similarity is a very challenging problem in IR and NLP field. In this project, we try to get a semantically similar sentence in the cited document to the cited text, in the context of Wikipedia. We have explored two things in the project. First, we explored different embedding that converts text to vector and still holds the semantic meaning like the Word2Vec and Doc2Vec model. Second, we have explored many similarity and distance metric which help to calculate the results effectively. Apart from this, we have also designed an end to end application of the above task. We have developed an API and plugin so that our project becomes user friendly.
 ## Requirement:
 
